@@ -1,0 +1,66 @@
+﻿@page "/Users"
+@using LoginBlazor.Services
+@using LoginBlazor.models
+@inject UserService UserService
+
+<h3>UserLIst</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                User Id
+            </th>
+            <th>
+                User Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Login
+            </th>
+            <th>
+                Password
+            </th>    
+        </tr>
+    </thead>
+    <tbody>
+        @if(userobj != null)
+        {
+            @foreach(var user in userobj)
+            {
+                <tr>
+                    <td>
+                        @user.Id
+                    </td>
+                    <td>
+                        @user.FullName
+                    </td>
+                    <td>
+                        @user.Email
+                    </td>
+                    <td>
+                        @user.Login
+                    </td>
+                    <td>
+                        @user.Password
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p>No user with that login found</p>
+        }
+    </tbody>
+</table>
+
+@code{
+    List<User> userobj;
+
+    protected override async Task OnInitializedAsync()
+    {
+        userobj = await Task.Run(() => UserService.AllUsers());
+    }
+}

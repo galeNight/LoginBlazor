@@ -1,0 +1,43 @@
+﻿@page "/Login"
+@using LoginBlazor.Services
+@using LoginBlazor.models
+@inject NavigationManager NM
+@inject UserService UserService
+
+<h3>LoginPage</h3>
+
+<div class="col-md-8">
+    <label for="Login" class="control-label">Login</label>
+    <input form="Login" class="from-control" @bind="Login.Login"></input>
+</div>
+<div class="col-md-8">
+    <label for="Password" class="control-label">Password</label>
+    <input form="Password" type="password" class="from-control" @bind="Login.Password"></input>
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+        <input type="button" class="btn btn-primary" @onclick="LoginUser" value="Login" />
+        <input type="button" class="btn btn-danger" @onclick="Cancel" value="Cancel" />
+    </div>
+</div>
+
+@code {
+    UserLogin Login = new UserLogin();
+
+    protected async void LoginUser()
+    {
+        var Authenticated = await UserService.AuthenticateUser(Login);
+        if (Authenticated)
+        {
+            NM.NavigateTo("/Users");
+        }
+        else
+        {
+
+        }
+    }
+    protected async void Cancel()
+    {
+        NM.NavigateTo("Login");
+    }
+}

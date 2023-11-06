@@ -1,0 +1,51 @@
+﻿@page "/register"
+@using LoginBlazor.Services
+@using LoginBlazor.models
+@inject UserService Userervice
+@inject NavigationManager NM
+
+<h3>User Registration</h3>
+
+<div class=" col-md-8">
+    <label for="FirstName" class="control-label">First Name</label>
+    <input form="FirstName" class="from-control" @bind="@Obj.FirstName"></input>
+</div>
+<div class=" col-md-8">
+    <label for="LastName" class="control-label">Last Name</label>
+    <input form="LastName" class="from-control" @bind="@Obj.LastName"></input>
+</div>
+<div class=" col-md-8">
+    <label for="Email" class="control-label">Email</label>
+    <input form="Email" class="from-control" @bind="@Obj.Email"></input>
+</div>
+<div class=" col-md-8">
+    <label for="Login" class="control-label">Login</label>
+    <input form="Login" class="from-control" @bind="@Obj.Login"></input>
+</div>
+<div class=" col-md-8">
+    <label for="Password" class="control-label">Password</label>
+    <input form="Password" class="from-control" @bind="@Obj.Password"></input>
+</div> 
+<div class="col-md-4">
+    <div class="form-group">
+        <input type="button" class="btn btn-primary" @onclick="NewUser" value="Save User" />
+        <input type="button" class="btn btn-danger" @onclick="Cancel" value="Cancel" />
+    </div>
+</div>
+
+
+
+@code{
+    User Obj = new models.User();
+
+    protected async void NewUser()
+    {
+        await Userervice.AddUser(Obj);
+        NM.NavigateTo("/login");
+
+    }
+    protected async void Cancel()
+    {
+        
+    }
+}
